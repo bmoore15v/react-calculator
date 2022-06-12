@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Animated, Image } from 'react-native'
 import { ToggleStyles } from '../styles/GlobalStyles'
-const ic_switch_on = require('../../assets/SwitchOn.png')
-const ic_switch_off = require('../../assets/SwitchOff.png')
+// const ic_switch_on = require('../../assets/SwitchOn.png')
+// const ic_switch_off = require('../../assets/SwitchOff.png')
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
 
 export interface ThumbProps {
   disabled?: boolean
@@ -23,8 +25,8 @@ export interface ThumbProps {
   disabledIconColor?: string
   height?: number
   colors?: {
-    true?: any
-    false?: any
+    true?: string
+    false?: string
   }
   disabledColor?: string
   pressIndicator?: any
@@ -48,8 +50,8 @@ export default class Thumb extends Component<ThumbProps> {
         false: 'rgb(255, 255, 255)',
       },
       icons = {
-        true: ic_switch_on,
-        false: ic_switch_off,
+        true: faSun,
+        false: faMoon,
       },
       iconColors = {
         true: '#FFFFFF',
@@ -78,7 +80,7 @@ export default class Thumb extends Component<ThumbProps> {
       inputRange: range,
       outputRange: [0 - radius, width - radius - size],
     })
-    // @ts-ignore
+    //@ts-ignore
     const iconColor = disabled ? disabledIconColor : iconColors[value]
 
     return (
@@ -111,13 +113,10 @@ export default class Thumb extends Component<ThumbProps> {
           ]}
         >
           {noIcon || (
-            <Image
+            <FontAwesomeIcon
               // @ts-ignore
-              source={icons[value]}
-              style={[
-                ToggleStyles.icon,
-                { width: '50%', aspectRatio: 1, tintColor: iconColor[value] },
-              ]}
+              icon={icons[value]}
+              style={{ width: '50%', aspectRatio: 1, color: iconColor[value] }}
             />
           )}
         </Animated.View>
